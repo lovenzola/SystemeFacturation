@@ -1,0 +1,357 @@
+/* Feuille de style — caisse super marché */
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    background: #f3efe7;
+    color: #2b2b2b;
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+a { color: #6a3b1f; }
+a:hover { text-decoration: none; }
+
+.bandeau {
+    background: #2c2a26;
+    color: #f3efe7;
+    padding: 10px 22px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    border-bottom: 4px solid #b3551d;
+}
+
+.bandeau .enseigne a {
+    color: #f3efe7;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.15rem;
+    letter-spacing: .5px;
+}
+
+.bandeau .sous-titre {
+    margin-left: 6px;
+    font-size: .8rem;
+    color: #c8b89a;
+    text-transform: uppercase;
+}
+
+.bandeau .menu {
+    display: flex;
+    gap: 16px;
+    flex: 1;
+}
+
+.bandeau .menu a {
+    color: #e9e1d0;
+    text-decoration: none;
+    padding: 4px 6px;
+    border-bottom: 2px solid transparent;
+}
+
+.bandeau .menu a:hover { border-bottom-color: #b3551d; }
+
+.bandeau .utilisateur {
+    font-size: .9rem;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.bandeau .lien-deco {
+    color: #f3efe7;
+    text-decoration: underline;
+}
+
+.contenu {
+    max-width: 1000px;
+    margin: 24px auto;
+    padding: 0 20px;
+}
+
+.bloc {
+    background: #fdfaf3;
+    border: 1px solid #d8cdb6;
+    padding: 22px 26px;
+    margin-bottom: 22px;
+}
+
+.bloc h1 {
+    margin-top: 0;
+    font-size: 1.4rem;
+    color: #3a2a18;
+    border-bottom: 1px solid #d8cdb6;
+    padding-bottom: 8px;
+}
+
+/* Formulaires */
+.formulaire p {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0 14px;
+}
+
+.formulaire label,
+.boite-connexion label {
+    margin-bottom: 4px;
+    font-weight: 600;
+    color: #3a2a18;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="month"],
+select {
+    padding: 7px 9px;
+    border: 1px solid #b8a886;
+    background: #fff;
+    font: inherit;
+    width: 100%;
+    max-width: 380px;
+}
+
+button, .bouton-lien {
+    background: #b3551d;
+    color: #fff;
+    border: 0;
+    padding: 8px 16px;
+    cursor: pointer;
+    font: inherit;
+    text-decoration: none;
+    display: inline-block;
+}
+
+button:hover, .bouton-lien:hover { background: #8e4015; }
+button.secondaire {
+    background: #5b5347;
+}
+button.secondaire:hover { background: #3f3a31; }
+
+.lien-annuler {
+    margin-left: 10px;
+    color: #5b5347;
+    text-decoration: underline;
+}
+
+.lien-suppr {
+    background: none;
+    border: 0;
+    color: #a3271b;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+    font: inherit;
+}
+
+/* Champ mot de passe avec œil */
+.champ-mdp {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 380px;
+}
+
+.champ-mdp input {
+    padding-right: 36px;
+    width: 100%;
+}
+
+.voir-mdp {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    color: #6a5a3b;
+    border: 0;
+    padding: 4px 6px;
+    cursor: pointer;
+    line-height: 0;
+}
+
+.voir-mdp:hover {
+    background: transparent;
+    color: #3a2a18;
+}
+
+/* Boîte de connexion */
+.boite-connexion {
+    max-width: 360px;
+    margin: 60px auto;
+    background: #fdfaf3;
+    border: 1px solid #d8cdb6;
+    padding: 26px;
+}
+
+.boite-connexion h1 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: #3a2a18;
+}
+
+.boite-connexion p {
+    display: flex;
+    flex-direction: column;
+    margin: 12px 0;
+}
+
+/* Messages */
+.message-erreur {
+    background: #f6dcd6;
+    border-left: 4px solid #a3271b;
+    padding: 8px 12px;
+    color: #6c1d13;
+    margin: 10px 0;
+}
+
+.message-ok {
+    background: #dde9d4;
+    border-left: 4px solid #4f6f3a;
+    padding: 8px 12px;
+    color: #2f4520;
+    margin: 10px 0;
+}
+
+.message-info {
+    background: #e2e8ee;
+    border-left: 4px solid #3a5a78;
+    padding: 8px 12px;
+    color: #1f364a;
+    margin: 10px 0;
+}
+
+.message-alerte {
+    background: #f5e6c4;
+    border-left: 4px solid #b07a1e;
+    padding: 8px 12px;
+    color: #5a3d0e;
+    margin: 10px 0;
+}
+
+.alerte-info {
+    background: #f1e8d3;
+    border-left: 4px solid #b3551d;
+    padding: 8px 14px;
+    margin: 10px 0;
+}
+
+/* Tableaux */
+.tableau {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+}
+
+.tableau th, .tableau td {
+    border: 1px solid #d8cdb6;
+    padding: 6px 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.tableau th {
+    background: #ece1c7;
+    color: #3a2a18;
+}
+
+.tableau tr.stock-faible td {
+    background: #fbeee2;
+}
+
+.tableau tr.vide td {
+    color: #8a7a5c;
+    font-style: italic;
+    text-align: center;
+}
+
+.tableau tfoot td, .tableau tfoot th {
+    background: #f6efdc;
+}
+
+/* Scanner */
+.zone-scanner {
+    background: #f6efdc;
+    border: 1px dashed #b8a886;
+    padding: 8px 12px;
+    margin-bottom: 14px;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.zone-scanner video {
+    width: 260px;
+    max-width: 100%;
+    margin-top: 8px;
+    background: #000;
+    display: block;
+}
+
+.info-scan {
+    margin: 8px 0 0;
+    font-size: .9rem;
+    color: #5b5347;
+}
+
+/* Ligne de saisie horizontale */
+.ligne-saisie {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: end;
+    margin: 14px 0;
+}
+
+.ligne-saisie label {
+    display: flex;
+    flex-direction: column;
+    font-size: .9rem;
+    color: #3a2a18;
+}
+
+.actions-facture {
+    margin-top: 16px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Accueil */
+.accueil h1 {
+    margin-top: 0;
+    color: #3a2a18;
+}
+
+.liste-actions {
+    list-style: square;
+    padding-left: 22px;
+}
+
+.liste-actions li { margin: 6px 0; }
+
+/* Pied de page */
+.pied {
+    text-align: center;
+    color: #6a5a3b;
+    padding: 18px 10px 30px;
+    font-size: .8rem;
+}
+
+/* Impression de facture */
+.entete-facture h1 {
+    border: none;
+    margin-bottom: 0;
+}
+
+.entete-facture p { margin: 2px 0; color: #5b5347; }
+
+@media print {
+    .bandeau, .pied, .no-print { display: none; }
+    body { background: #fff; }
+    .bloc { border: none; padding: 0; }
+}

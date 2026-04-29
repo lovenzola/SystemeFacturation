@@ -1,0 +1,18 @@
+[
+    {
+        "identifiant": "superadmin",
+        "mot_de_passe": "$2y$10$5UYJIj3b\/lI9ghhoVthXMeKYneTuFEi4D3.uIBdk7ZOjiZypIn2sC",
+        "role": "super_admin",
+        "nom_complet": "Super Administrateur",
+        "date_creation": "2026-04-17",
+        "actif": true
+    },
+    {
+        "identifiant": "godelivecaisse",
+        "mot_de_passe": "$2y$10$zwAf6\/ie.p2mNDHyLdJCfucjvZ8XevLvOZzvJokPKhIaJPGjnc88.",
+        "role": "caissier",
+        "nom_complet": "Godelive KAMPULU",
+        "date_creation": "2026-04-27",
+        "actif": true
+    }
+]
