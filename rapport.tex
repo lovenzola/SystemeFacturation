@@ -1,0 +1,1005 @@
+\documentclass[12pt,a4paper]{article}
+
+% =====================================================================
+%  Encodage et langue
+% =====================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% =====================================================================
+%  Mise en page
+% =====================================================================
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+
+% =====================================================================
+%  Graphiques, couleurs, tableaux
+% =====================================================================
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{enumitem}
+
+% =====================================================================
+%  Code source
+% =====================================================================
+\usepackage{listings}
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codekw}{RGB}{0,0,180}
+\definecolor{codestr}{RGB}{163,21,21}
+\definecolor{codecmt}{RGB}{0,128,0}
+\lstset{
+    backgroundcolor=\color{codebg},
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{codekw}\bfseries,
+    stringstyle=\color{codestr},
+    commentstyle=\color{codecmt}\itshape,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=8pt,
+    frame=single,
+    rulecolor=\color{black!30},
+    breaklines=true,
+    breakatwhitespace=true,
+    showstringspaces=false,
+    tabsize=2,
+    captionpos=b,
+    extendedchars=true,
+    inputencoding=utf8,
+    literate=
+        {é}{{\'e}}1 {è}{{\`e}}1 {ê}{{\^e}}1 {ë}{{\"e}}1
+        {à}{{\`a}}1 {â}{{\^a}}1 {ä}{{\"a}}1
+        {ô}{{\^o}}1 {ö}{{\"o}}1
+        {î}{{\^i}}1 {ï}{{\"i}}1
+        {ù}{{\`u}}1 {û}{{\^u}}1 {ü}{{\"u}}1
+        {ç}{{\c{c}}}1 {É}{{\'E}}1 {À}{{\`A}}1 {Ç}{{\c{C}}}1
+        {’}{{'}}1 {«}{{<<}}1 {»}{{>>}}1
+}
+\lstdefinelanguage{json}{
+    basicstyle=\ttfamily\footnotesize,
+    keywords={true,false,null},
+    keywordstyle=\color{codekw}\bfseries,
+    string=[s]{"}{"},
+    stringstyle=\color{codestr},
+    comment=[l]{//},
+    commentstyle=\color{codecmt}\itshape,
+    morestring=[b]",
+}
+
+% =====================================================================
+%  Diagrammes (TikZ)
+% =====================================================================
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3.2cm,
+    minimum height=0.9cm, text centered, draw=black, fill=red!15]
+\tikzstyle{process} = [rectangle, minimum width=3.6cm, minimum height=0.9cm,
+    text centered, text width=4.2cm, draw=black, fill=blue!10]
+\tikzstyle{decision} = [diamond, aspect=2, minimum width=3cm, minimum height=0.8cm,
+    text centered, text width=3.2cm, draw=black, fill=yellow!25]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110,
+    minimum width=3cm, minimum height=0.8cm, text centered, text width=3.6cm,
+    draw=black, fill=green!15]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+% =====================================================================
+%  Liens
+% =====================================================================
+\usepackage[hidelinks]{hyperref}
+
+% =====================================================================
+%  En-têtes
+% =====================================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Programmation Web en PHP}
+\fancyhead[R]{\small Système de Facturation}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+% =====================================================================
+%  PAGE DE GARDE
+% =====================================================================
+\begin{titlepage}
+    \thispagestyle{empty}
+    \begin{center}
+
+        {\large \textbf{UNIVERSITÉ PROTESTANTE AU CONGO}}\\[0.2cm]
+        {\large \textbf{FACULTÉ DES SCIENCES INFORMATIQUES}}\\[0.2cm]
+        {\normalsize B.P. 4745 KINSHASA 2}\\[1.5cm]
+
+
+        \rule{\linewidth}{0.5mm}\\[0.6cm]
+        {\Large \textbf{TRAVAIL PRATIQUE DE PROGRAMMATION WEB EN PHP}}\\[0.6cm]
+        \rule{\linewidth}{0.5mm}\\[1.5cm]
+
+        {\LARGE \textbf{Conception et implémentation d'un système de facturation web avec lecture de codes-barres}}\\[0.4cm]
+        {\large \textit{Programmation procédurale --- Gestion de fichiers --- Contrôle d'accès basé sur les rôles}}\\[2.5cm]
+
+        \begin{minipage}{0.45\textwidth}
+            \begin{flushleft}
+                \textbf{Présenté par :}\\[0.3cm]
+                KAMPULU BIMWANA Godelive\\
+                NZOLA SAMBA Love\\
+                MBUYU ILUNGA Franck\\
+            \end{flushleft}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.45\textwidth}
+            \begin{flushright}
+                \textbf{Promotion :}\\[0.3cm]
+                Deuxième Licence LMD\\
+                Faculté des Sciences Informatiques\\
+                \\
+            \end{flushright}
+        \end{minipage}\\[2cm]
+
+        \textbf{Encadrant : Assistant Jireh'el MBUYAMBA\rule{4cm}{0.4pt}}\\[1.5cm]
+
+        {\large \textbf{Année académique : 2025 -- 2026}}
+
+    \end{center}
+\end{titlepage}
+
+% =====================================================================
+%  TABLE DES MATIÈRES
+% =====================================================================
+\pagenumbering{roman}
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+
+% =====================================================================
+%  1. INTRODUCTION
+% =====================================================================
+\section{Introduction}
+
+\subsection{Contexte général}
+
+L'accélération de la digitalisation des activités commerciales constitue aujourd'hui l'un des leviers majeurs de la modernisation des petites et moyennes entreprises. Dans les supermarchés de proximité, en particulier dans le contexte congolais, la gestion des ventes demeure encore très largement manuelle : les caissiers saisissent au clavier les noms et les prix des articles, tiennent les stocks dans des cahiers et calculent les totaux à la calculatrice. Cette approche, bien qu'accessible, génère de nombreux problèmes : erreurs de calcul, files d'attente plus longues, manque de traçabilité des transactions, difficulté à suivre les ruptures de stock et impossibilité d'analyser les ventes a posteriori.
+
+Le présent travail pratique répond directement à cette problématique. Un petit supermarché souhaite moderniser son processus de vente en mettant en place une caisse informatisée accessible depuis un navigateur web, capable de lire des codes-barres à l'aide de la caméra d'un téléphone ou d'un ordinateur, et capable de produire automatiquement des factures détaillées. Notre groupe a été mandaté pour concevoir et développer ce système, dans le strict respect d'une contrainte forte : l'utilisation exclusive du langage PHP en mode procédural et l'absence totale de système de gestion de base de données.
+
+\subsection{Présentation du projet}
+
+Le système développé, désigné dans la suite par l'expression « système de facturation », est une application web légère organisée en trois modules fonctionnels : l'enregistrement des produits dans le catalogue, la facturation proprement dite (création de factures par scan successif des articles), et la gestion des comptes utilisateurs avec contrôle d'accès basé sur les rôles. Il est complété par un module de rapports journaliers et mensuels.
+
+L'ensemble des données --- catalogue de produits, factures émises et comptes utilisateurs --- est persisté dans des fichiers au format JSON, manipulés via les fonctions natives de PHP (\texttt{file\_get\_contents}, \texttt{json\_decode}, \texttt{json\_encode}, \texttt{file\_put\_contents}). Cette approche, volontairement simple, satisfait la contrainte pédagogique du sujet et permet de se concentrer sur la logique procédurale et sur les bonnes pratiques de validation.
+
+\subsection{Objectifs du travail}
+
+Ce projet vise à atteindre plusieurs objectifs complémentaires, à la fois techniques et pédagogiques :
+
+\begin{itemize}[leftmargin=1.5em]
+    \item Concevoir et structurer une application web complète selon le paradigme procédural en PHP, sans recours à la programmation orientée objet ni à un cadriciel.
+    \item Mettre en \oe{}uvre un mécanisme de persistance de données fondé exclusivement sur des fichiers texte structurés au format JSON.
+    \item Intégrer dans une interface web une bibliothèque JavaScript de lecture de codes-barres (en l'occurrence \textit{ZXing-JS}) communiquant avec le serveur PHP.
+    \item Implémenter un système d'authentification et de contrôle d'accès basé sur trois rôles hiérarchiques (Caissier, Manager, Super Administrateur).
+    \item Appliquer rigoureusement les bonnes pratiques de validation et d'assainissement des données côté serveur, conformément aux recommandations de sécurité usuelles en PHP.
+    \item Rédiger un rapport technique structuré au format \LaTeX{} documentant l'architecture, le fonctionnement et les choix techniques de l'application.
+\end{itemize}
+
+\subsection{Organisation du rapport}
+
+Le présent document est organisé en huit sections principales, conformément aux exigences de la \textit{Partie 4} de l'énoncé. La section~\ref{sec:objectifs} précise les objectifs détaillés du projet. La section~\ref{sec:arborescence} présente et commente l'arborescence du code source. La section~\ref{sec:donnees} décrit et justifie les structures de données retenues. La section~\ref{sec:modules} décrit chaque module fonctionnel et la logique des principales fonctions PHP employées. La section~\ref{sec:flux} propose un diagramme de flux complet du traitement d'une transaction de vente. La section~\ref{sec:validation} traite des mécanismes de validation et de sécurité. La section~\ref{sec:difficultes} expose les difficultés rencontrées et les solutions apportées. Enfin, la section~\ref{sec:conclusion} conclut et propose des pistes d'amélioration.
+
+% =====================================================================
+%  2. OBJECTIFS DU PROJET
+% =====================================================================
+\section{Objectifs détaillés du projet}
+\label{sec:objectifs}
+
+Les objectifs du projet peuvent être déclinés en deux grandes catégories : les objectifs fonctionnels, qui décrivent ce que le système doit \textit{faire}, et les objectifs pédagogiques, qui décrivent ce que les étudiants doivent \textit{apprendre}.
+
+\subsection{Objectifs fonctionnels}
+
+Sur le plan fonctionnel, le système doit permettre :
+
+\begin{enumerate}[leftmargin=1.5em]
+    \item L'\textbf{authentification sécurisée} de trois catégories d'utilisateurs (Caissier, Manager, Super Administrateur) via un identifiant et un mot de passe haché.
+    \item L'\textbf{enregistrement de nouveaux produits} dans le catalogue, déclenché par la détection d'un code-barres inconnu via la caméra. Chaque produit comporte au minimum un nom commercial, un prix unitaire hors taxe exprimé en francs congolais (CDF), une date d'expiration et une quantité initiale en stock.
+    \item La \textbf{consultation et la mise à jour} des produits déjà enregistrés.
+    \item La \textbf{création d'une facture} à partir du scan successif des codes-barres des articles vendus. Pour chaque article, le système affiche automatiquement le nom et le prix unitaire HT, demande la quantité, ajoute la ligne à la facture et recalcule le récapitulatif.
+    \item Le \textbf{calcul automatique} des sous-totaux par article, du total HT, du montant de la TVA (au taux de 18~\%) et du net à payer TTC.
+    \item L'\textbf{horodatage et la sauvegarde} de chaque facture validée dans le fichier \texttt{data/factures.json}, ainsi que la décrémentation correspondante du stock dans \texttt{data/produits.json}.
+    \item La \textbf{gestion des comptes utilisateurs} par le Super Administrateur (création et suppression de comptes Caissiers et Managers).
+    \item La \textbf{génération de rapports} journaliers et mensuels listant les ventes effectuées sur la période choisie.
+\end{enumerate}
+
+\subsection{Objectifs pédagogiques}
+
+Sur le plan pédagogique, ce travail vise à consolider plusieurs compétences fondamentales du programme de Programmation Web :
+
+\begin{itemize}[leftmargin=1.5em]
+    \item Maîtriser les éléments de base du langage PHP en mode procédural : variables superglobales (\texttt{\$\_POST}, \texttt{\$\_GET}, \texttt{\$\_SESSION}), structures de contrôle, fonctions, inclusions de fichiers.
+    \item Manipuler les fichiers en lecture et en écriture via \texttt{file\_get\_contents}, \texttt{file\_put\_contents}, \texttt{fopen} et les verrous (\texttt{flock}).
+    \item Utiliser la sérialisation JSON (\texttt{json\_encode}, \texttt{json\_decode}) comme alternative simple à un SGBD.
+    \item Implémenter un système d'authentification sécurisé reposant sur \texttt{password\_hash} et \texttt{password\_verify}.
+    \item Mettre en place un contrôle d'accès basé sur les rôles via les sessions PHP.
+    \item Comprendre l'interaction entre le client (HTML, CSS, JavaScript) et le serveur (PHP) dans un schéma classique de requête/réponse HTTP.
+    \item Appliquer des règles de validation et d'assainissement des entrées utilisateur pour prévenir les vulnérabilités courantes (injection HTML/JS, fichiers corrompus, etc.).
+    \item Rédiger un rapport technique structuré en \LaTeX{}.
+\end{itemize}
+
+\subsection{Choix méthodologiques retenus}
+
+Conformément aux recommandations du sujet, nous avons systématiquement privilégié la méthode la plus simple à chaque étape, dans la mesure où cette simplicité ne compromettait pas le respect des contraintes :
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Persistance} : fichiers JSON manipulés par les fonctions natives de PHP. Aucun \textit{wrapper} ni couche d'abstraction n'a été développé.
+    \item \textbf{Lecture de codes-barres} : bibliothèque \textit{ZXing-JS}, choisie pour sa robustesse, sa documentation et sa compatibilité multi-navigateurs.
+    \item \textbf{Authentification} : sessions PHP natives (\texttt{session\_start}) et hachage par défaut de \texttt{password\_hash} (algorithme \texttt{PASSWORD\_DEFAULT}).
+    \item \textbf{Interface utilisateur} : HTML5 et CSS minimal, sans bibliothèque tierce, afin de garder le code lisible et inspectable.
+    \item \textbf{Architecture} : strict respect de l'arborescence proposée par l'énoncé, sans modification, afin de garantir l'évaluation et la lisibilité du projet.
+\end{itemize}
+
+% =====================================================================
+%  3. ARBORESCENCE DU PROJET
+% =====================================================================
+\section{Arborescence du projet}
+\label{sec:arborescence}
+
+L'organisation du code source reprend strictement l'arborescence proposée dans l'énoncé. Cette structure sépare clairement les différentes responsabilités du système : configuration, authentification, modules fonctionnels, données persistées, fonctions utilitaires, ressources statiques et rapports. Aucune modification n'a été apportée à cette arborescence ; chaque fichier énuméré dans l'énoncé existe effectivement dans le dépôt et joue le rôle décrit ci-dessous.
+
+\subsection{Vue générale}
+
+\begin{lstlisting}[basicstyle=\ttfamily\small, frame=single, backgroundcolor=\color{codebg}]
+facturation/
+|-- index.php
+|-- config/
+|   |-- config.php
+|-- auth/
+|   |-- login.php
+|   |-- logout.php
+|   |-- session.php
+|-- modules/
+|   |-- produits/
+|   |   |-- enregistrer.php
+|   |   |-- lire.php
+|   |   |-- liste.php
+|   |-- facturation/
+|   |   |-- nouvelle-facture.php
+|   |   |-- calcul.php
+|   |   |-- afficher-facture.php
+|   |-- admin/
+|       |-- gestion-comptes.php
+|       |-- ajouter-compte.php
+|       |-- supprimer-compte.php
+|-- data/
+|   |-- produits.json
+|   |-- factures.json
+|   |-- utilisateurs.json
+|-- includes/
+|   |-- header.php
+|   |-- footer.php
+|   |-- fonctions-produits.php
+|   |-- fonctions-factures.php
+|   |-- fonctions-auth.php
+|-- assets/
+|   |-- css/
+|   |   |-- style.css
+|   |-- js/
+|       |-- scanner.js
+|-- rapports/
+    |-- rapport-journalier.php
+    |-- rapport-mensuel.php
+\end{lstlisting}
+
+\subsection{Description fichier par fichier}
+
+\subsubsection{Racine du projet}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \texttt{index.php} --- point d'entrée de l'application. Ce fichier vérifie d'abord si l'utilisateur est authentifié en incluant \texttt{auth/session.php}. Dans le cas contraire, il opère une redirection vers \texttt{auth/login.php}. Une fois la session validée, il affiche un tableau de bord adapté au rôle de l'utilisateur connecté (menu de facturation pour le Caissier, menu complet pour le Manager, menu administratif pour le Super Administrateur).
+\end{itemize}
+
+\subsubsection{Répertoire \texttt{config/}}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \texttt{config.php} --- fichier de configuration globale. Il définit, sous forme de constantes PHP (\texttt{define}), les paramètres invariants de l'application : taux de TVA (\texttt{TVA = 0.18}), monnaie (\texttt{CDF}), chemin absolu vers le répertoire \texttt{data/}, nom de l'application, version, et noms des trois fichiers de persistance. Tous les autres fichiers du projet incluent \texttt{config.php} pour accéder à ces constantes.
+\end{itemize}
+
+\subsubsection{Répertoire \texttt{auth/}}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \texttt{login.php} --- formulaire d'authentification. Il affiche un formulaire HTML demandant identifiant et mot de passe, puis traite la soumission via \texttt{\$\_POST}. La fonction \texttt{verifier\_identifiants()} (définie dans \texttt{includes/fonctions-auth.php}) charge le fichier \texttt{data/utilisateurs.json}, recherche l'identifiant fourni et vérifie le mot de passe à l'aide de \texttt{password\_verify}. En cas de succès, les informations utiles (identifiant, rôle, nom complet) sont stockées dans \texttt{\$\_SESSION} et l'utilisateur est redirigé vers \texttt{index.php}.
+    \item \texttt{logout.php} --- détruit la session courante par \texttt{session\_unset()} suivi de \texttt{session\_destroy()}, puis redirige vers \texttt{login.php}.
+    \item \texttt{session.php} --- garde commune incluse au sommet de chaque page protégée. Elle appelle \texttt{session\_start()}, vérifie que \texttt{\$\_SESSION['utilisateur']} est défini et que le rôle requis figure parmi ceux autorisés pour la page. En cas d'échec, elle redirige vers \texttt{login.php} ou affiche un message d'accès refusé.
+\end{itemize}
+
+\subsubsection{Répertoire \texttt{modules/produits/}}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \texttt{enregistrer.php} --- page d'enregistrement d'un nouveau produit. Elle active la caméra via \texttt{assets/js/scanner.js}, reçoit le code-barres via une requête AJAX, vérifie son existence dans \texttt{data/produits.json} et, le cas échéant, affiche un formulaire de saisie (nom, prix unitaire HT, date d'expiration, quantité initiale).
+    \item \texttt{lire.php} --- point d'entrée AJAX qui reçoit un code-barres en \texttt{\$\_GET} ou \texttt{\$\_POST} et retourne, au format JSON, soit la fiche produit existante, soit un indicateur d'absence.
+    \item \texttt{liste.php} --- affiche la liste complète du catalogue sous forme de tableau HTML, avec recherche par nom ou par code-barres et tri par colonne.
+\end{itemize}
+
+\subsubsection{Répertoire \texttt{modules/facturation/}}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \texttt{nouvelle-facture.php} --- page principale du caissier. Elle gère la création d'une facture en cours via la variable de session \texttt{\$\_SESSION['facture\_courante']}, qui contient un tableau associatif d'articles. À chaque scan, le caissier ajoute, modifie ou supprime une ligne, puis valide la facture.
+    \item \texttt{calcul.php} --- regroupe les fonctions de calcul (sous-total par article, total HT, montant TVA, total TTC). Ces fonctions sont également accessibles depuis \texttt{includes/fonctions-factures.php}.
+    \item \texttt{afficher-facture.php} --- prend en paramètre l'identifiant d'une facture et l'affiche dans une mise en page imprimable (en-tête, lignes, totaux).
+\end{itemize}
+
+\subsubsection{Répertoire \texttt{modules/admin/}}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \texttt{gestion-comptes.php} --- liste tous les comptes utilisateurs, à l'exclusion des hachages de mot de passe. Permet d'accéder aux opérations d'ajout et de suppression.
+    \item \texttt{ajouter-compte.php} --- formulaire de création d'un nouveau compte (identifiant, nom complet, rôle, mot de passe). Le mot de passe est haché par \texttt{password\_hash} avant écriture dans \texttt{data/utilisateurs.json}.
+    \item \texttt{supprimer-compte.php} --- supprime un compte après confirmation. Le Super Administrateur ne peut pas supprimer son propre compte.
+\end{itemize}
+
+\subsubsection{Répertoire \texttt{data/}}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \texttt{produits.json} --- catalogue des produits enregistrés.
+    \item \texttt{factures.json} --- historique de toutes les factures émises.
+    \item \texttt{utilisateurs.json} --- comptes utilisateurs avec mots de passe hachés.
+\end{itemize}
+
+Ce répertoire est protégé en lecture directe par un fichier \texttt{.htaccess} (\texttt{Deny from all}) afin d'empêcher toute consultation des données depuis l'extérieur via une URL.
+
+\subsubsection{Répertoire \texttt{includes/}}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \texttt{header.php} --- entête HTML commun à toutes les pages (déclaration \texttt{<head>}, inclusion du fichier CSS, barre de navigation adaptée au rôle).
+    \item \texttt{footer.php} --- pied de page commun et fermeture des balises HTML.
+    \item \texttt{fonctions-produits.php} --- fonctions utilitaires liées aux produits : \texttt{charger\_produits()}, \texttt{enregistrer\_produit()}, \texttt{trouver\_produit\_par\_code()}, \texttt{mettre\_a\_jour\_stock()}.
+    \item \texttt{fonctions-factures.php} --- fonctions utilitaires liées à la facturation : \texttt{generer\_id\_facture()}, \texttt{calculer\_totaux()}, \texttt{enregistrer\_facture()}, \texttt{charger\_factures()}.
+    \item \texttt{fonctions-auth.php} --- fonctions utilitaires liées à l'authentification : \texttt{verifier\_identifiants()}, \texttt{est\_connecte()}, \texttt{role\_requis()}, \texttt{hacher\_mot\_de\_passe()}.
+\end{itemize}
+
+\subsubsection{Répertoire \texttt{assets/}}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \texttt{css/style.css} --- feuille de style globale. Mise en page sobre, palette à deux couleurs (bleu et blanc cassé), composants minimalistes (formulaires, tableaux, boutons).
+    \item \texttt{js/scanner.js} --- script client qui pilote la caméra de l'appareil et lit les codes-barres via la bibliothèque \textit{ZXing-JS}. Une fois un code détecté, il est transmis à \texttt{modules/produits/lire.php} via une requête \texttt{fetch()} en \texttt{POST}.
+\end{itemize}
+
+\subsubsection{Répertoire \texttt{rapports/}}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \texttt{rapport-journalier.php} --- liste les factures du jour courant (ou d'une date choisie), avec total des ventes HT et TTC.
+    \item \texttt{rapport-mensuel.php} --- agrège les ventes du mois courant (ou choisi) par jour, et fournit le chiffre d'affaires global.
+\end{itemize}
+
+% =====================================================================
+%  4. STRUCTURES DE DONNÉES
+% =====================================================================
+\section{Structures de données}
+\label{sec:donnees}
+
+\subsection{Format retenu : JSON}
+
+L'ensemble des données persistées du système est stocké au format JSON (\textit{JavaScript Object Notation}). Ce choix répond à plusieurs exigences simultanément :
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Conformité au sujet} : l'énoncé interdit explicitement tout SGBD et impose la persistance par fichiers, sans en imposer le format.
+    \item \textbf{Lisibilité humaine} : un fichier JSON peut être ouvert dans n'importe quel éditeur de texte pour vérification, ce qui simplifie le débogage.
+    \item \textbf{Support natif en PHP} : les fonctions \texttt{json\_encode} et \texttt{json\_decode} sont disponibles depuis PHP 5.2 et permettent une (dé)sérialisation en une seule ligne.
+    \item \textbf{Adéquation avec le client} : le JSON est le format d'échange naturel entre le code JavaScript du navigateur et le serveur PHP, ce qui évite toute conversion intermédiaire pour la communication AJAX du scanner de codes-barres.
+    \item \textbf{Représentation hiérarchique} : à la différence d'un fichier CSV, le JSON permet d'imbriquer naturellement la liste d'articles d'une facture dans la facture elle-même.
+\end{itemize}
+
+Les trois fichiers JSON sont systématiquement structurés en \textbf{tableau d'objets}, ce qui permet d'itérer simplement avec \texttt{foreach} en PHP.
+
+\subsection{Structure d'un produit}
+
+Chaque produit du catalogue est représenté par l'objet JSON suivant :
+
+\begin{lstlisting}[language=json, caption={Exemple d'enregistrement d'un produit}]
+{
+    "code_barre": "3017620422003",
+    "nom": "Vain amour 1 L",
+    "prix_unitaire_ht": 1200,
+    "date_expiration": "2026-12-31",
+    "quantite_stock": 50,
+    "date_enregistrement": "2026-04-17"
+}
+\end{lstlisting}
+
+\textbf{Justification des champs :}
+\begin{itemize}[leftmargin=1.5em]
+    \item \texttt{code\_barre} : chaîne de caractères représentant le code EAN-13 ou tout autre format détecté par \textit{ZXing-JS}. Ce champ joue le rôle de clé primaire ; il est unique dans le fichier.
+    \item \texttt{nom} : libellé commercial affiché sur la facture.
+    \item \texttt{prix\_unitaire\_ht} : prix exprimé en CDF, hors taxe. Un entier est préféré à un nombre flottant pour éviter les imprécisions de calcul liées à la représentation IEEE~754.
+    \item \texttt{date\_expiration} : date au format \texttt{AAAA-MM-JJ} (ISO~8601), ce qui permet le tri lexicographique direct.
+    \item \texttt{quantite\_stock} : entier positif, décrémenté à chaque vente.
+    \item \texttt{date\_enregistrement} : date d'introduction du produit dans le catalogue, à des fins de traçabilité.
+\end{itemize}
+
+\subsection{Structure d'une facture}
+
+\begin{lstlisting}[language=json, caption={Exemple de facture}]
+{
+    "id_facture": "FAC-20260417-001",
+    "date": "2026-04-17",
+    "heure": "10:35:22",
+    "caissier": "love.nzola",
+    "articles": [
+        {
+            "code_barre": "3017620422003",
+            "nom": "Vain amour 1 L",
+            "prix_unitaire_ht": 1200,
+            "quantite": 2,
+            "sous_total_ht": 2400
+        }
+    ],
+    "total_ht": 2400,
+    "tva": 432,
+    "total_ttc": 2832
+}
+\end{lstlisting}
+
+\textbf{Justification des champs :}
+\begin{itemize}[leftmargin=1.5em]
+    \item \texttt{id\_facture} : identifiant lisible composé du préfixe \texttt{FAC-}, de la date du jour au format \texttt{AAAAMMJJ} et d'un compteur séquentiel sur trois chiffres. Cette structure garantit l'unicité tout en restant lisible par un humain.
+    \item \texttt{date} et \texttt{heure} : horodatage généré au moment de la validation, à l'aide de la fonction \texttt{date()} de PHP.
+    \item \texttt{caissier} : identifiant du caissier ayant réalisé la transaction, récupéré depuis \texttt{\$\_SESSION}.
+    \item \texttt{articles} : tableau imbriqué d'objets représentant chaque ligne de la facture.
+    \item \texttt{total\_ht}, \texttt{tva}, \texttt{total\_ttc} : montants pré-calculés et stockés afin d'éviter tout recalcul ultérieur. Le montant TVA est obtenu en multipliant \texttt{total\_ht} par \texttt{0,18} et en arrondissant à l'entier le plus proche par \texttt{round()}.
+\end{itemize}
+
+\subsection{Structure d'un utilisateur}
+
+\begin{lstlisting}[language=json, caption={Exemple d'enregistrement d'un utilisateur}]
+{
+    "identifiant": "love.nzola",
+    "mot_de_passe": "$2y$10$E4xqz9o...",
+    "role": "caissier",
+    "nom_complet": "Love Nzola Samba",
+    "date_creation": "2026-04-17",
+    "actif": true
+}
+\end{lstlisting}
+
+\textbf{Justification des champs :}
+\begin{itemize}[leftmargin=1.5em]
+    \item \texttt{identifiant} : chaîne courte, unique, utilisée pour la connexion.
+    \item \texttt{mot\_de\_passe} : empreinte produite par \texttt{password\_hash(\$mdp, PASSWORD\_DEFAULT)}. Aucun mot de passe en clair n'est jamais conservé.
+    \item \texttt{role} : valeur appartenant à l'ensemble \{\texttt{caissier}, \texttt{manager}, \texttt{super\_admin}\}.
+    \item \texttt{nom\_complet} : nom affiché dans l'interface (en-tête, factures).
+    \item \texttt{date\_creation} : traçabilité de la création du compte.
+    \item \texttt{actif} : booléen permettant de désactiver un compte sans le supprimer.
+\end{itemize}
+
+\subsection{Lecture et écriture des fichiers JSON}
+
+Toutes les opérations sur les fichiers JSON respectent le même schéma générique :
+
+\begin{lstlisting}[language=PHP, caption={Schéma générique de lecture/écriture JSON}]
+function charger_donnees($chemin) {
+    if (!file_exists($chemin)) {
+        return [];
+    }
+    $contenu = file_get_contents($chemin);
+    $donnees = json_decode($contenu, true);
+    return is_array($donnees) ? $donnees : [];
+}
+
+function sauvegarder_donnees($chemin, $donnees) {
+    $json = json_encode($donnees, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    $fp = fopen($chemin, 'c+');
+    if (flock($fp, LOCK_EX)) {
+        ftruncate($fp, 0);
+        rewind($fp);
+        fwrite($fp, $json);
+        fflush($fp);
+        flock($fp, LOCK_UN);
+    }
+    fclose($fp);
+}
+\end{lstlisting}
+
+L'usage de \texttt{flock(LOCK\_EX)} garantit qu'aucune écriture concurrente ne corrompt les fichiers, et l'option \texttt{JSON\_UNESCAPED\_UNICODE} préserve les accents et les caractères français dans le fichier sauvegardé.
+
+% =====================================================================
+%  5. DESCRIPTION DES MODULES
+% =====================================================================
+\section{Description des modules}
+\label{sec:modules}
+
+Le système se décompose en quatre modules fonctionnels : authentification, produits, facturation et administration des comptes. Chacun de ces modules s'appuie sur un ensemble de fonctions PHP regroupées dans le répertoire \texttt{includes/}.
+
+\subsection{Module d'authentification}
+
+\subsubsection{Logique générale}
+
+L'authentification est l'unique point d'entrée du système : aucune page autre que \texttt{auth/login.php} n'est accessible à un utilisateur non connecté. La logique repose sur les sessions PHP natives, qui permettent de maintenir l'état de connexion d'un utilisateur d'une requête à l'autre.
+
+\subsubsection{Fonctions clés}
+
+\begin{lstlisting}[language=PHP, caption={Vérification des identifiants}]
+function verifier_identifiants($identifiant, $mot_de_passe) {
+    $utilisateurs = charger_donnees(CHEMIN_UTILISATEURS);
+    foreach ($utilisateurs as $u) {
+        if ($u['identifiant'] === $identifiant && $u['actif'] === true) {
+            if (password_verify($mot_de_passe, $u['mot_de_passe'])) {
+                return $u;
+            }
+        }
+    }
+    return false;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=PHP, caption={Garde de session avec contrôle de rôle}]
+function role_requis(array $roles_autorises) {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    if (!isset($_SESSION['utilisateur'])) {
+        header('Location: /facturation/auth/login.php');
+        exit;
+    }
+    if (!in_array($_SESSION['utilisateur']['role'], $roles_autorises, true)) {
+        http_response_code(403);
+        echo "Accès refusé.";
+        exit;
+    }
+}
+\end{lstlisting}
+
+Chaque page protégée commence ainsi par une ligne unique du type :
+
+\begin{lstlisting}[language=PHP]
+require_once __DIR__ . '/../../includes/fonctions-auth.php';
+role_requis(['manager', 'super_admin']);
+\end{lstlisting}
+
+Cette unique ligne suffit à enforcer le contrôle d'accès, ce qui rend le code à la fois lisible et facile à auditer.
+
+\subsection{Module de gestion des produits}
+
+\subsubsection{Logique générale}
+
+Le module \texttt{modules/produits/} couvre trois cas d'usage : enregistrer un nouveau produit (\texttt{enregistrer.php}), interroger le catalogue par code-barres (\texttt{lire.php}) et consulter la liste complète (\texttt{liste.php}). Les deux premières opérations sont déclenchées par le scanner de la caméra ; la troisième est purement consultative.
+
+\subsubsection{Flux d'enregistrement}
+
+Le flux complet d'enregistrement d'un nouveau produit est le suivant :
+
+\begin{enumerate}[leftmargin=1.5em]
+    \item L'utilisateur (Manager ou Super Administrateur) ouvre la page \texttt{enregistrer.php}.
+    \item Le script \texttt{scanner.js} initialise la caméra et démarre la détection ZXing.
+    \item Dès qu'un code est détecté, il est envoyé en \texttt{POST} à \texttt{lire.php} via \texttt{fetch}.
+    \item \texttt{lire.php} appelle \texttt{trouver\_produit\_par\_code(\$code)} et retourne un objet JSON.
+    \item Si le produit existe, ses informations s'affichent en lecture seule.
+    \item Sinon, un formulaire HTML de saisie apparaît, pré-rempli avec le code-barres détecté.
+    \item À la soumission, \texttt{enregistrer.php} valide les champs et appelle \texttt{enregistrer\_produit(\$data)}.
+\end{enumerate}
+
+\begin{lstlisting}[language=PHP, caption={Fonction d'enregistrement d'un produit}]
+function enregistrer_produit(array $data): bool {
+    $produits = charger_donnees(CHEMIN_PRODUITS);
+    foreach ($produits as $p) {
+        if ($p['code_barre'] === $data['code_barre']) {
+            return false;
+        }
+    }
+    $data['date_enregistrement'] = date('Y-m-d');
+    $produits[] = $data;
+    sauvegarder_donnees(CHEMIN_PRODUITS, $produits);
+    return true;
+}
+\end{lstlisting}
+
+\subsection{Module de facturation}
+
+\subsubsection{Logique générale}
+
+Ce module est le c\oe{}ur opérationnel du système. Il guide le caissier de l'ouverture d'une facture vide à sa validation finale et à son archivage.
+
+\subsubsection{Cycle de vie d'une facture}
+
+\begin{enumerate}[leftmargin=1.5em]
+    \item Le caissier ouvre \texttt{nouvelle-facture.php}.
+    \item Une facture vide est initialisée dans \texttt{\$\_SESSION['facture\_courante']}.
+    \item Pour chaque article : le code-barres est scanné, le produit recherché, la quantité saisie, et la ligne ajoutée.
+    \item À tout moment, le caissier peut supprimer une ligne ou modifier une quantité.
+    \item À la validation, \texttt{calculer\_totaux()} produit les montants HT, TVA et TTC.
+    \item \texttt{enregistrer\_facture()} attribue un identifiant unique, écrit la facture dans \texttt{factures.json} et décrémente le stock.
+    \item \texttt{afficher-facture.php} génère la version imprimable.
+\end{enumerate}
+
+\subsubsection{Fonction de calcul}
+
+\begin{lstlisting}[language=PHP, caption={Calcul des totaux d'une facture}]
+function calculer_totaux(array $articles): array {
+    $total_ht = 0;
+    foreach ($articles as &$ligne) {
+        $ligne['sous_total_ht'] =
+            $ligne['prix_unitaire_ht'] * $ligne['quantite'];
+        $total_ht += $ligne['sous_total_ht'];
+    }
+    unset($ligne);
+    $tva = (int) round($total_ht * TVA);
+    $total_ttc = $total_ht + $tva;
+    return [
+        'articles'  => $articles,
+        'total_ht'  => $total_ht,
+        'tva'       => $tva,
+        'total_ttc' => $total_ttc,
+    ];
+}
+\end{lstlisting}
+
+\subsubsection{Génération d'identifiants uniques}
+
+L'identifiant d'une facture suit le motif \texttt{FAC-AAAAMMJJ-XXX}, où \texttt{XXX} est un compteur journalier sur trois chiffres :
+
+\begin{lstlisting}[language=PHP, caption={Génération d'un identifiant de facture}]
+function generer_id_facture(): string {
+    $date = date('Ymd');
+    $factures = charger_donnees(CHEMIN_FACTURES);
+    $compteur = 1;
+    foreach ($factures as $f) {
+        if (strpos($f['id_facture'], "FAC-$date-") === 0) {
+            $compteur++;
+        }
+    }
+    return sprintf("FAC-%s-%03d", $date, $compteur);
+}
+\end{lstlisting}
+
+\subsubsection{Décrémentation du stock}
+
+Après la validation, la fonction \texttt{mettre\_a\_jour\_stock()} parcourt les articles de la facture et décrémente le champ \texttt{quantite\_stock} dans \texttt{produits.json}. Si une quantité demandée dépasse le stock disponible, la transaction est bloquée \textit{avant} l'écriture de la facture, garantissant la cohérence des données.
+
+\subsection{Module d'administration des comptes}
+
+\subsubsection{Logique générale}
+
+Réservé au Super Administrateur, ce module permet de créer et de supprimer des comptes Caissiers et Managers. Il s'appuie sur les mêmes fonctions de chargement et de sauvegarde JSON que les autres modules.
+
+\subsubsection{Création d'un compte}
+
+\begin{lstlisting}[language=PHP, caption={Création d'un compte utilisateur}]
+function ajouter_compte(string $identifiant, string $mdp_clair,
+                        string $role, string $nom_complet): bool {
+    $utilisateurs = charger_donnees(CHEMIN_UTILISATEURS);
+    foreach ($utilisateurs as $u) {
+        if ($u['identifiant'] === $identifiant) {
+            return false;
+        }
+    }
+    $utilisateurs[] = [
+        'identifiant'   => $identifiant,
+        'mot_de_passe' => password_hash($mdp_clair, PASSWORD_DEFAULT),
+        'role'          => $role,
+        'nom_complet'   => $nom_complet,
+        'date_creation' => date('Y-m-d'),
+        'actif'         => true,
+    ];
+    sauvegarder_donnees(CHEMIN_UTILISATEURS, $utilisateurs);
+    return true;
+}
+\end{lstlisting}
+
+\subsection{Tableau des rôles et permissions}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Rôle} & \textbf{Permissions accordées} \\
+\hline
+Caissier & Lecture des codes-barres, création et consultation de factures. \\
+\hline
+Manager & Toutes les permissions du Caissier, plus l'enregistrement de produits, la modification du stock et la consultation des rapports journaliers et mensuels. \\
+\hline
+Super Administrateur & Toutes les permissions du Manager, plus la création et la suppression de comptes Caissiers et Managers. \\
+\hline
+\end{tabular}
+\caption{Matrice des rôles et permissions}
+\end{table}
+
+% =====================================================================
+%  6. DIAGRAMME DE FLUX D'UNE TRANSACTION
+% =====================================================================
+\section{Diagramme de flux d'une transaction de vente}
+\label{sec:flux}
+
+Le diagramme ci-dessous formalise le traitement complet d'une transaction de vente, depuis la connexion du caissier jusqu'à l'archivage de la facture et la décrémentation du stock.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[node distance=1.1cm and 1.6cm]
+
+\node (start)    [startstop] {Début};
+\node (login)    [process, below=of start] {Authentification du caissier};
+\node (auth)     [decision, below=of login] {Identifiants valides ?};
+\node (deny)     [process, right=of auth, fill=red!10] {Affichage erreur, retour login};
+\node (newfac)   [process, below=of auth] {Initialisation d'une nouvelle facture};
+\node (scan)     [io, below=of newfac] {Scan d'un code-barres};
+\node (search)   [process, below=of scan] {Recherche dans \texttt{produits.json}};
+\node (found)    [decision, below=of search] {Produit trouvé ?};
+\node (notify)   [process, right=of found, fill=red!10] {Avertir le Manager pour enregistrement};
+\node (qty)      [io, below=of found] {Saisie de la quantité};
+\node (stock)    [decision, below=of qty] {Quantité $\le$ stock ?};
+\node (block)    [process, right=of stock, fill=red!10] {Blocage transaction, alerte};
+\node (addline)  [process, below=of stock] {Ajout de la ligne, recalcul des totaux};
+\node (more)     [decision, below=of addline] {Article suivant ?};
+\node (validate) [process, below=of more] {Validation de la facture};
+\node (save)     [process, below=of validate] {Écriture dans \texttt{factures.json}, MAJ stock};
+\node (display)  [io, below=of save] {Affichage / impression};
+\node (end)      [startstop, below=of display] {Fin};
+
+\draw [arrow] (start) -- (login);
+\draw [arrow] (login) -- (auth);
+\draw [arrow] (auth) -- node[anchor=south]{non} (deny);
+\draw [arrow] (auth) -- node[anchor=east]{oui} (newfac);
+\draw [arrow] (newfac) -- (scan);
+\draw [arrow] (scan) -- (search);
+\draw [arrow] (search) -- (found);
+\draw [arrow] (found) -- node[anchor=south]{non} (notify);
+\draw [arrow] (found) -- node[anchor=east]{oui} (qty);
+\draw [arrow] (qty) -- (stock);
+\draw [arrow] (stock) -- node[anchor=south]{non} (block);
+\draw [arrow] (stock) -- node[anchor=east]{oui} (addline);
+\draw [arrow] (addline) -- (more);
+\draw [arrow] (more.east) -- ++(2.2,0) |- node[near start, right]{oui} (scan.east);
+\draw [arrow] (more) -- node[anchor=east]{non} (validate);
+\draw [arrow] (validate) -- (save);
+\draw [arrow] (save) -- (display);
+\draw [arrow] (display) -- (end);
+
+\end{tikzpicture}
+\caption{Diagramme de flux du traitement d'une transaction de vente}
+\label{fig:flux-vente}
+\end{figure}
+
+\subsection{Lecture du diagramme}
+
+Le diagramme se lit du haut vers le bas. Trois nuds de décision (losanges jaunes) déclenchent des branches alternatives en cas d'échec : identifiants invalides, produit inconnu ou stock insuffisant. La boucle horizontale au niveau de la décision « Article suivant ? » exprime la nature itérative de la facturation : tant qu'il reste des articles à scanner, le système retourne à l'étape de lecture du code-barres. La validation finale déclenche deux écritures atomiques (facture et stock) avant l'affichage imprimable, point terminal du processus.
+
+% =====================================================================
+%  7. VALIDATION DES DONNÉES ET SÉCURITÉ
+% =====================================================================
+\section{Validation des données et sécurité}
+\label{sec:validation}
+
+\subsection{Validation côté serveur}
+
+Toutes les données reçues par le serveur PHP, qu'elles proviennent d'un formulaire HTML, d'une requête AJAX ou d'une variable d'URL, sont systématiquement validées avant tout traitement. Cette validation est effectuée à l'aide d'une fonction utilitaire \texttt{nettoyer\_chaine()} et de plusieurs vérifications spécifiques.
+
+\begin{lstlisting}[language=PHP, caption={Assainissement des chaînes de caractères}]
+function nettoyer_chaine($valeur): string {
+    $valeur = trim((string) $valeur);
+    $valeur = stripslashes($valeur);
+    $valeur = htmlspecialchars($valeur, ENT_QUOTES, 'UTF-8');
+    return $valeur;
+}
+\end{lstlisting}
+
+Les vérifications minimales appliquées sont :
+
+\begin{itemize}[leftmargin=1.5em]
+    \item Champs obligatoires non vides (\texttt{empty()}).
+    \item Prix et quantités convertis en nombres (\texttt{is\_numeric}, \texttt{(int)}, \texttt{(float)}) et strictement positifs.
+    \item Format de date validé via \texttt{DateTime::createFromFormat('Y-m-d', \$valeur)}.
+    \item Code-barres composé uniquement de chiffres (\texttt{ctype\_digit()}) d'une longueur comprise entre 8 et 14.
+    \item Rôle appartenant à la liste blanche \texttt{['caissier','manager','super\_admin']}.
+\end{itemize}
+
+En cas de saisie invalide, un message d'erreur explicite est affiché \textit{au-dessus du formulaire}, et les valeurs déjà saisies sont conservées dans les champs grâce à des appels \texttt{value="<?= htmlspecialchars(\$\_POST['champ'] ?? '') ?>"}.
+
+\subsection{Sécurité du contrôle d'accès}
+
+Le contrôle d'accès repose sur trois piliers :
+
+\begin{enumerate}[leftmargin=1.5em]
+    \item Le hachage des mots de passe via \texttt{password\_hash()} et leur vérification via \texttt{password\_verify()}. Aucun mot de passe en clair n'est jamais stocké, ni journalisé.
+    \item Le maintien de la session via \texttt{session\_start()}, avec stockage dans \texttt{\$\_SESSION} des seules informations utiles (identifiant, rôle, nom complet).
+    \item La vérification du rôle requis en début de chaque page protégée, via la fonction \texttt{role\_requis()} décrite plus haut.
+\end{enumerate}
+
+\subsection{Protection du répertoire \texttt{data/}}
+
+Le répertoire \texttt{data/} contient des informations sensibles (notamment les hachages des mots de passe). Il est protégé en accès direct par un fichier \texttt{.htaccess} contenant la directive \texttt{Deny from all}, ce qui empêche tout accès via une URL du type \texttt{http://serveur/facturation/data/utilisateurs.json}.
+
+\subsection{Protection contre les écritures concurrentes}
+
+Le verrouillage exclusif (\texttt{flock(LOCK\_EX)}) appliqué lors de chaque écriture des fichiers JSON garantit qu'aucune corruption ne peut survenir si deux requêtes tentent de modifier le même fichier simultanément, par exemple deux validations de factures effectuées exactement au même instant par deux caisses différentes.
+
+% =====================================================================
+%  8. DIFFICULTÉS RENCONTRÉES
+% =====================================================================
+\section{Difficultés rencontrées}
+\label{sec:difficultes}
+
+La réalisation de ce projet, bien que de taille modeste, a confronté l'équipe à plusieurs difficultés techniques et organisationnelles.
+
+\subsection{Lecture des codes-barres dans le navigateur}
+
+La principale difficulté a été l'intégration de la lecture de codes-barres via la caméra. Plusieurs problèmes se sont enchaînés :
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Compatibilité des navigateurs} : l'API \texttt{getUserMedia} requiert un contexte sécurisé (\texttt{https} ou \texttt{localhost}). Sur certains postes de test ouvrant l'application via \texttt{http://192.168.x.x}, l'accès à la caméra était refusé sans message clair.
+    \item \textbf{Qualité de l'image} : la luminosité ambiante et la qualité de la caméra des téléphones d'entrée de gamme provoquaient de nombreuses détections erronées ou des absences de détection.
+    \item \textbf{Choix de la bibliothèque} : nous avons hésité entre \textit{QuaggaJS} et \textit{ZXing-JS}. \textit{QuaggaJS} s'est révélé moins maintenu (dernier commit ancien) et plus difficile à configurer pour les codes EAN-13 utilisés dans le commerce courant.
+    \item \textbf{Gestion des doublons de scan} : la caméra renvoyant en continu le même code, des doublons indésirables se créaient dans la facture.
+\end{itemize}
+
+\subsection{Persistance et concurrence}
+
+L'utilisation de fichiers JSON comme base de données pose des questions inhabituelles pour qui est habitué à un SGBD :
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Pas de transactions} : il a fallu écrire à la main un mécanisme de verrouillage pour éviter les écritures concurrentes.
+    \item \textbf{Pas d'index} : chaque recherche de produit par code-barres parcourt linéairement le tableau, ce qui est acceptable tant que le catalogue reste petit, mais limite la \textit{scalabilité}.
+    \item \textbf{Risque de corruption} : une coupure de courant pendant l'écriture pouvait laisser le fichier dans un état JSON invalide.
+\end{itemize}
+
+\subsection{Conception de l'interface utilisateur}
+
+La consigne d'éviter les captures d'écran et de privilégier la simplicité nous a poussés à éliminer toute bibliothèque CSS tierce. Concevoir une interface lisible avec un seul fichier CSS de moins de 200 lignes, tout en restant utilisable depuis un téléphone portable, a demandé plusieurs itérations.
+
+\subsection{Coordination de l'équipe}
+
+Le projet étant réalisé en groupe de trois étudiants, la coordination a constitué une difficulté en soi. La répartition initiale par module a engendré des conflits ponctuels lors des fusions de code, notamment sur les fichiers transverses (\texttt{includes/}). La planification a également été contrainte par le calendrier serré (date limite du 24 avril 2026).
+
+\subsection{Apprentissage de \LaTeX{}}
+
+Aucun membre du groupe n'avait de pratique approfondie de \LaTeX{} avant ce projet. La rédaction du présent rapport a donc imposé un effort d'apprentissage parallèle, notamment sur la mise en page des extraits de code et sur la production du diagramme de flux en TikZ.
+
+% =====================================================================
+%  9. SOLUTIONS APPORTÉES
+% =====================================================================
+\section{Solutions apportées}
+
+\subsection{Pour la lecture des codes-barres}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Choix définitif de ZXing-JS} : pour sa robustesse, sa documentation et sa prise en charge native de l'EAN-13.
+    \item \textbf{Mode dégradé de saisie manuelle} : conformément à la consigne de simplicité, un champ texte de saisie manuelle du code-barres est toujours disponible à côté de la caméra. Si la caméra n'est pas accessible (navigateur non compatible, refus d'autorisation, mauvaise luminosité), le caissier peut taper le code à la main, sans aucune perte de fonctionnalité.
+    \item \textbf{Anti-rebond} : un \textit{debounce} JavaScript ignore tout code identique au précédent dans une fenêtre de 1500\,ms, ce qui élimine les doublons de scan.
+    \item \textbf{Test sur HTTPS local} : l'application est testée derrière un tunnel HTTPS (par exemple via le serveur de développement de Replit ou un certificat auto-signé local) pour garantir l'accès à la caméra.
+\end{itemize}
+
+\subsection{Pour la persistance et la concurrence}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item Mise en place systématique de \texttt{flock(LOCK\_EX)} dans toutes les fonctions d'écriture.
+    \item Validation de l'intégrité du JSON après lecture : si \texttt{json\_decode} retourne \texttt{null}, un message d'erreur explicite est affiché et aucune écriture supplémentaire n'est réalisée.
+    \item Adoption d'un schéma d'écriture en deux temps (\texttt{ftruncate} + \texttt{rewind} + \texttt{fwrite} + \texttt{fflush}) pour limiter la fenêtre de corruption.
+\end{itemize}
+
+\subsection{Pour la conception de l'interface}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item Choix d'une grille CSS simple à deux colonnes maximum, adaptée au format mobile.
+    \item Palette à deux teintes (bleu de l'UPC et blanc cassé), boutons clairement contrastés.
+    \item Tableaux de factures avec en-tête \textit{sticky} pour le défilement.
+\end{itemize}
+
+\subsection{Pour la coordination}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item Utilisation d'un dépôt Git partagé pour la gestion des versions, avec une branche par fonctionnalité et des fusions revues à deux.
+    \item Découpage clair des responsabilités : chaque membre du groupe a porté un module principal, mais les fichiers transverses (\texttt{includes/}, CSS) ont été modifiés conjointement pendant des sessions de travail communes.
+    \item Tenue d'un journal de bord recensant les décisions techniques importantes.
+\end{itemize}
+
+\subsection{Pour l'apprentissage de \LaTeX{}}
+
+Un modèle de document a été constitué en début de projet et partagé entre les trois auteurs, ce qui a homogénéisé la mise en forme. L'environnement \texttt{listings} a été retenu pour les extraits de code, et la bibliothèque TikZ pour le diagramme de flux. La compilation a été effectuée sur la plateforme Overleaf afin d'éviter les problèmes d'installation locale.
+
+% =====================================================================
+%  10. CONCLUSION
+% =====================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
+Au terme de ce travail pratique, l'équipe est parvenue à concevoir et à implémenter un système de facturation web fonctionnel répondant à l'ensemble des contraintes de l'énoncé : programmation en PHP procédural sans recours à un cadriciel, persistance exclusivement par fichiers JSON, lecture de codes-barres depuis la caméra du navigateur, contrôle d'accès basé sur trois rôles hiérarchiques, et respect strict de l'arborescence imposée.
+
+Au-delà de la simple satisfaction des exigences fonctionnelles, ce projet aura été l'occasion de consolider des compétences fondamentales : structuration logique d'une application web, manipulation des fichiers et des sessions PHP, implémentation manuelle d'un mécanisme d'authentification sécurisé, intégration d'une bibliothèque JavaScript externe, et rédaction d'un rapport technique en \LaTeX{}. La discipline imposée par l'absence de SGBD a obligé à réfléchir explicitement à des problématiques habituellement masquées par une couche d'abstraction (verrouillage, intégrité, format des données), ce qui en fait un exercice pédagogique particulièrement formateur.
+
+L'application est aujourd'hui utilisable en l'état dans le contexte d'un petit supermarché de proximité : un Manager peut alimenter le catalogue par scan, un Caissier peut produire des factures TTC en quelques secondes, et un Super Administrateur peut piloter les comptes utilisateurs. Le système reste néanmoins perfectible, et les sections suivantes en énumèrent les principales pistes d'évolution.
+
+\section{Perspectives d'amélioration}
+
+Plusieurs axes d'évolution peuvent être envisagés à moyen terme :
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Migration vers un SGBD léger}, par exemple SQLite, qui permettrait de bénéficier de transactions ACID, d'index et de requêtes SQL, tout en préservant la portabilité (un seul fichier \texttt{.sqlite}).
+    \item \textbf{Refactorisation orientée objet} avec un mini-cadriciel maison ou un cadriciel léger (Slim, Lumen) afin de gagner en testabilité.
+    \item \textbf{Impression directe} sur une imprimante ticket via un middleware (par exemple un service d'impression écoutant un port local).
+    \item \textbf{Statistiques avancées} : graphiques d'évolution du chiffre d'affaires, analyse des produits les plus vendus, suivi des ruptures de stock.
+    \item \textbf{Internationalisation} : prise en charge de plusieurs langues d'interface (français, anglais, lingala).
+    \item \textbf{Mode hors-ligne} avec un \textit{Service Worker} et une base \textit{IndexedDB}, ce qui permettrait au caissier de continuer à émettre des factures lors d'une coupure réseau.
+    \item \textbf{Tests automatisés} : la mise en place de tests unitaires (PHPUnit) sur les fonctions de calcul et de validation augmenterait la fiabilité du système.
+    \item \textbf{Déploiement sur un serveur dédié} avec HTTPS pour activer pleinement la lecture caméra sur tous les terminaux.
+\end{itemize}
+
+% =====================================================================
+%  11. RÉFÉRENCES
+% =====================================================================
+\section*{Références}
+\addcontentsline{toc}{section}{Références}
+
+\begin{enumerate}[leftmargin=1.5em]
+    \item Documentation officielle de PHP --- \url{https://www.php.net/manual/fr/}.
+    \item Documentation de la fonction \texttt{password\_hash} --- \url{https://www.php.net/manual/fr/function.password-hash.php}.
+    \item Bibliothèque \textit{ZXing for JavaScript} --- \url{https://github.com/zxing-js/library}.
+    \item Spécification JSON (RFC~8259) --- \url{https://tools.ietf.org/html/rfc8259}.
+    \item Documentation MDN sur \texttt{getUserMedia} --- \url{https://developer.mozilla.org/fr/docs/Web/API/MediaDevices/getUserMedia}.
+\end{enumerate}
+
+% =====================================================================
+%  12. ANNEXES
+% =====================================================================
+\section*{Annexes}
+\addcontentsline{toc}{section}{Annexes}
+
+\subsection*{Annexe A --- Lien vers le dépôt du code source}
+
+L'intégralité du code source du projet est hébergée sur GitHub à l'adresse suivante : https://lovenzola.github.io/SystemeFacturation/\\[0.4cm]
+\textbf{\rule{10cm}{0.4pt}} \\[0.4cm]
+
+\subsection*{Annexe B --- Instructions de déploiement local}
+
+\begin{enumerate}[leftmargin=1.5em]
+    \item Cloner le dépôt : \texttt{git clone <url-du-depot>}.
+    \item Placer le dossier \texttt{facturation/} dans la racine d'un serveur HTTP local supportant PHP~8 (XAMPP, WAMP, ou serveur intégré PHP).
+    \item Démarrer le serveur de développement : \texttt{php -S localhost:8000 -t facturation}.
+    \item Ouvrir l'application dans un navigateur récent à l'adresse \texttt{http://localhost:8000}.
+    \item Se connecter avec le compte Super Administrateur initial dont les identifiants sont définis dans le fichier \texttt{README.txt}.
+\end{enumerate}
+
+\subsection*{Annexe C --- Compte Super Administrateur initial}
+
+Conformément à la consigne de l'énoncé, le compte Super Administrateur initial est créé manuellement dans \texttt{data/utilisateurs.json} :
+
+\begin{lstlisting}[language=json]
+[
+    {
+        "identifiant": "super.admin",
+        "mot_de_passe": "<hachage_genere_par_password_hash>",
+        "role": "super_admin",
+        "nom_complet": "Super Administrateur",
+        "date_creation": "2026-04-17",
+        "actif": true
+    }
+]
+\end{lstlisting}
+
+Le hachage est obtenu une fois pour toutes en exécutant en ligne de commande :
+
+\begin{lstlisting}[language=PHP]
+php -r "echo password_hash('MotDePasseInitial', PASSWORD_DEFAULT);"
+\end{lstlisting}
+
+\subsection*{Annexe D --- Membres du groupe}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item KAMPULU BIMWANA Godelive
+    \item NZOLA SAMBA Love
+    \item MBUYU ILUNGA Franck
+\end{itemize}
+
+\vspace{1cm}
+\begin{center}
+\textit{Fin du rapport}
+\end{center}
+
+\end{document}
